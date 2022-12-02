@@ -1,4 +1,3 @@
-import head from "next/head";
 import { MongoClient, ObjectId } from "mongodb";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 import Head from "next/head";
@@ -27,10 +26,10 @@ export async function getStaticPaths() {
   const db = client.db("meetup");
   const meetupsCollection = db.collection("meetups");
   // second argument means that only catch documents containing _id feild
-  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
+  const meetups = await meetupsCollection.find().project({ _id: 1 }).toArray();
 
   return {
-    fallback: false,
+    fallback: true,
     paths: meetups.map((meetup) => {
       return { params: { meetupId: meetup._id.toString() } };
     }),
