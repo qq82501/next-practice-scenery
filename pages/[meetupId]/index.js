@@ -27,10 +27,7 @@ export async function getStaticPaths() {
   const db = client.db("meetup");
   const meetupsCollection = db.collection("meetups");
   // second argument means that only catch documents containing _id feild
-  const meetups = await meetupsCollection
-    .find({})
-    .project({ _id: 1 })
-    .toArray();
+  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
   console.log(meetups);
 
   return {
