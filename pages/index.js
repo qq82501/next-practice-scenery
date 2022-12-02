@@ -36,6 +36,6 @@ export async function getStaticProps() {
 
   client.close();
 
-  return { props: { meetups: meetups }, revalidate: 60 };
+  return { props: { meetups: meetups }, revalidate: 30 };
 }
 export default HomePage;
