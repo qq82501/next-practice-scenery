@@ -3,7 +3,6 @@ import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
 
 function HomePage(props) {
-  // console.log(1111, process.env.NEXT_PUBLIC_MONGO_PASSWORD);
   return (
     <>
       <Head>
