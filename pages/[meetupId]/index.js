@@ -1,12 +1,17 @@
 import { MongoClient, ObjectId } from "mongodb";
+import { useRouter } from "next/router";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 import Head from "next/head";
 
 function MeetupDetailPage(props) {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <p>loading....</p>;
+  }
   return (
     <>
       <Head>
-        <title>{`Event - ${props.meetupDetail.title}`}</title>
+        <title>{`Event - ${props.meetupDetail.title} `}</title>
         <meta name="description" content={props.meetupDetail.description} />
       </Head>
       <MeetupDetail
