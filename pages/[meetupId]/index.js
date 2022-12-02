@@ -10,6 +10,7 @@ function MeetupDetailPage(props) {
         <title>{`Event - ${props.meetupDetail.title}`}</title>
         <meta name="description" content={props.meetupDetail.description} />
       </Head>
+      {console.log(props.meetupDetail.title)}
       <MeetupDetail
         image={props.meetupDetail.image}
         title={props.meetupDetail.title}
@@ -28,7 +29,6 @@ export async function getStaticPaths() {
   const meetupsCollection = db.collection("meetups");
   // second argument means that only catch documents containing _id feild
   const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
-  console.log(meetups);
 
   return {
     fallback: true,
@@ -48,6 +48,7 @@ export async function getStaticProps(context) {
   const meetupDetail = await meetupsCollection.findOne({
     _id: ObjectId(meetupId),
   });
+  console.log(meetupDetail);
 
   return {
     props: {
