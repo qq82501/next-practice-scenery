@@ -27,10 +27,14 @@ export async function getStaticPaths() {
   const db = client.db("meetup");
   const meetupsCollection = db.collection("meetups");
   // second argument means that only catch documents containing _id feild
-  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
+  const meetups = await meetupsCollection
+    .find({}, { _id: 1 })
+    .project({ _id: 1 })
+    .toArray();
+  console.log(meetups);
 
   return {
-    fallback: false,
+    fallback: true,
     paths: meetups.map((meetup) => {
       return { params: { meetupId: meetup._id.toString() } };
     }),
@@ -58,6 +62,7 @@ export async function getStaticProps(context) {
         description: meetupDetail.description,
       },
     },
+    revalidate: 60,
   };
 }
 
